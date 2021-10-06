@@ -10,3 +10,4 @@
 
 
 image_structure_t *smooth_image(image_structure_t *img, int size_of_kernel);
+image_structure_t *smooth_image_n_times(image_structure_t *img, int size_of_kernel, int smooth_intensity);

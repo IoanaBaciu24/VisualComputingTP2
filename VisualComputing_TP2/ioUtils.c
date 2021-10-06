@@ -126,9 +126,9 @@ image_structure_t* read_image(FILE *file_descr){
     return image;
 }
 
-void write_image_to_file(image_structure_t *img, char * file_name)
+void write_image_to_file(image_structure_t *img, FILE * fp)
 {
-    FILE *fp = fopen(file_name, "w");
+//    FILE *fp = fopen(file_name, "w");
     fprintf(fp, "P5\n");
 
     fprintf(fp, "%d %d \n", img->cols, img->rows);

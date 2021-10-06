@@ -23,4 +23,4 @@ int pm_getint( FILE* file);
 
 void pm_erreur(char *);
 image_structure_t * read_image(FILE *file_descr);
-void write_image_to_file(image_structure_t *img, char * file_name);
+void write_image_to_file(image_structure_t *img, FILE *fp);

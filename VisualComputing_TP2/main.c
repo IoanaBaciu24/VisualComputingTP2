@@ -8,24 +8,43 @@
 
 int main(int argc, char *argv[])
 {
-    FILE *input_file_descriptor;
-    char *file1 = "/Users/yone/Downloads/boat_noise1.pgm";
-    char *file2 = "/Users/yone/Documents/VisualComputing_TP2/test.pgm";
+    FILE *input_file_descriptor, *output_file_descriptor;
 
-    input_file_descriptor = fopen(file1,"r");
-    if (input_file_descriptor == NULL) {
-        printf("error in opening file %s\n", argv[1]);
+
+    if(argc<4)
+    {
+        printf("Please give all the args\n");
         exit(1);
     }
 
-    image_structure_t *img = read_image(input_file_descriptor);
-    image_structure_t *new_img = smooth_image(img, 3);
+    char *input_file_name = argv[1];
+    char *output_file_name = argv[2];
 
-    for(int i=0;i<10;i++)
-    {
-        new_img = smooth_image(new_img, 3);
+
+    input_file_descriptor = fopen(input_file_name,"r");
+    if (input_file_descriptor == NULL) {
+        printf("error in opening file %s\n", input_file_name);
+        exit(1);
     }
-    write_image_to_file(new_img,file2);
+
+
+    output_file_descriptor = fopen(output_file_name,"w");
+    if (output_file_descriptor == NULL) {
+        printf("error in opening file %s\n", output_file_name);
+        exit(1);
+    }
+
+    int smoothening_intensity = atoi(argv[3]);
+    if(smoothening_intensity<=0)
+    {
+        printf("bad value for intensity. shame.");
+        exit(1);
+
+    }
+
+    image_structure_t *img = read_image(input_file_descriptor);
+    image_structure_t *new_img = smooth_image_n_times(img, 3, smoothening_intensity);
+    write_image_to_file(new_img,output_file_descriptor);
 
 
 }

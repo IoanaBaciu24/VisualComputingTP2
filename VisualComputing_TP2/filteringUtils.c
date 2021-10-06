@@ -40,18 +40,15 @@ int get_dot_prod(image_structure_t *img, int *matrix,  int start_i, int start_j,
 
 image_structure_t *smooth_image(image_structure_t *img, int size_of_kernel)
 {
-//    int kernel[9] = {1,2,1,2,4,2,1,2,1}, size =3;
-    int kernel[25] = {1,4,6,4,1,4,16,24,16,4,6,24,36,24,6,4,16,24,16,4,1,4,6,4,1}, size = 5;
-    int start_i,start_j, end_i, end_j, pos_i, pos_j, computed_value;
-//    if(size_of_kernel == 3)
-//    {
-//        kernel = {1,2,1,2,4,2,1,2,1};
-//        size = 3;
-//    }
-//    else{
-//        kernel = {1,4,6,4,1,4,16,24,16,4,6,24,36,24,6,4,16,24,16,4,1,4,6,4,1};
-//        size = 5;
-//    }
+    int *kernel;
+    int kernel_3[] = {1,2,1,2,4,2,1,2,1};
+    int kernel_5[] = {1,4,6,4,1,4,16,24,16,4,6,24,36,24,6,4,16,24,16,4,1,4,6,4,1};
+    if(size_of_kernel == 3)
+        kernel = kernel_3;
+    else
+        kernel = kernel_5;
+    int start_i,start_j, end_i, end_j, pos_i, pos_j;
+
 
     image_structure_t *new_image = malloc(sizeof(image_structure_t));
     unsigned char *new_img_matrix = malloc(img->rows*img->cols* sizeof(unsigned char));
@@ -61,11 +58,11 @@ image_structure_t *smooth_image(image_structure_t *img, int size_of_kernel)
         for(int j=0;j<img->cols;j++){
            pos_i = i;
            pos_j = j;
-           start_i = i-(int)size/2;
-           end_i= i+(int)size/2;
+           start_i = i-(int)size_of_kernel/2;
+           end_i= i+(int)size_of_kernel/2;
 
-           start_j = j-(int)size/2;
-           end_j= j+(int)size/2;
+           start_j = j-(int)size_of_kernel/2;
+           end_j= j+(int)size_of_kernel/2;
 
            new_img_matrix[i*img->cols+j] = (char)get_dot_prod(img, kernel, start_i, start_j, end_i, end_j, pos_i, pos_j);
 
@@ -82,4 +79,14 @@ image_structure_t *smooth_image(image_structure_t *img, int size_of_kernel)
 
 
 }
+
+image_structure_t *smooth_image_n_times(image_structure_t *img, int size_of_kernel, int smooth_intensity)
+{
+    for(int i=0;i<smooth_intensity;i++)
+    {
+        img = smooth_image(img, size_of_kernel);
+    }
+    return img;
+}
+
 
