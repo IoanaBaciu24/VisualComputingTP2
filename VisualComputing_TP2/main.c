@@ -3,8 +3,9 @@
 //
 #include <stdlib.h>
 #include <stdio.h>
-#include "ioUtils.h"
+//#include "ioUtils.h"
 #include "filteringUtils.h"
+#include "histogramUtils.h"
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +44,29 @@ int main(int argc, char *argv[])
     }
 
     image_structure_t *img = read_image(input_file_descriptor);
-    image_structure_t *new_img = smooth_image_n_times(img, 3, smoothening_intensity);
+//    image_structure_t *new_img = smooth_image_n_times_median_filter(img, 3, smoothening_intensity);
+    int *histogram = compute_histogram(img);
+
+    int min=0, max=0;
+    for(int i=0;i<=255;i++)
+    {
+        if(histogram[i]!=0)
+        {
+            min = i;
+            break;
+        }
+    }
+
+    for(int i=255;i>=0;i--)
+    {
+        if(histogram[i]!=0)
+        {
+            max = i;
+            break;
+        }
+    }
+    image_structure_t *new_img = histogram_equalization(img, histogram, max);
+
     write_image_to_file(new_img,output_file_descriptor);
 
 

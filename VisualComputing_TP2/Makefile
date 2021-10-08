@@ -17,7 +17,7 @@ LDFLAGS   =  -g -lm
 
 #pxmtopxm : pxmtopxm.o Util.o
 
-main : main.o ioUtils.o filteringUtils.o
+main : main.o ioUtils.o filteringUtils.o histogramUtils.o
 #colorfulboye: colorfulboye.o Util.o
 #ppmtopgp: ppmtopgp.o Util.o
 

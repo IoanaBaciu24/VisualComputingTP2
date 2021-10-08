@@ -8,12 +8,12 @@
 #endif //VISUALCOMPUTING_TP2_IOUTILS_H
 
 #include <stdio.h>
+#include "image_structure.h"
 
-
-typedef struct ImageStructure{
-    int maxval, rows,cols;
-    unsigned char* image_matrix;
-} image_structure_t;
+//typedef struct ImageStructure{
+//    int maxval, rows,cols;
+//    unsigned char* image_matrix;
+//} image_structure_t;
 
 
 char pm_getc(FILE* file);
