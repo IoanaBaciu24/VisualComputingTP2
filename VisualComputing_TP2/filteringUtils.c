@@ -59,7 +59,6 @@ int cmpfunc (const void * a, const void * b) {
                 }
         }
         qsort(values_in_window, count, sizeof(int), cmpfunc);
-//        printf("got here\n");
         return values_in_window[(int)count/2+1];
     }
 

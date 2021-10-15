@@ -65,9 +65,9 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    image_structure_t *new_img = histogram_equalization(img, histogram, max);
-
-    write_image_to_file(new_img,output_file_descriptor);
+    image_structure_t *new_img = histogram_stretching(img, min, max);
+//    image_structure_t *new_img =smooth_image_n_times(img, 5, smoothening_intensity);
+            write_image_to_file(new_img,output_file_descriptor);
 
 
 }

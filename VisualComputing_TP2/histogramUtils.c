@@ -19,6 +19,9 @@ int *compute_histogram(image_structure_t *img)
 
 }
 
+//            new_img_matrix[i*img->cols+j] = (char)((int)((int)img->image_matrix[i*img->cols+j]*(255/(max_intensity - min_intensity))));
+
+
 image_structure_t * histogram_stretching(image_structure_t *img, int min_intensity, int max_intensity){
 
     image_structure_t *new_image = malloc(sizeof(image_structure_t));
@@ -28,7 +31,8 @@ image_structure_t * histogram_stretching(image_structure_t *img, int min_intensi
     for(int i=0;i<img->rows;i++)
         for(int j=0;j<img->cols;j++)
         {
-            new_img_matrix[i*img->cols+j] = (char)((int)((int)img->image_matrix[i*img->cols+j]*(255/(max_intensity - min_intensity))));
+            new_img_matrix[i*img->cols+j] = (char)((255*((int)img->image_matrix[i*img->cols+j] - min_intensity))/(max_intensity - min_intensity));
+                    //Max (i − i1)/(i2 − i1).
         }
     new_image->maxval = 255;
     new_image->cols = img->cols;
